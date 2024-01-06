@@ -2,22 +2,32 @@ import {useEffect, useState} from 'react'
 import Card from "./components/Card";
 import ButtonGroup from "./components/ButtonGroup";
 
-const EASY = 20
-const MEDIUM = 100
-const HARD = 200
-const BEAST = 1000
+//TODO how can I use this way instead?
+// const MODE = [
+//     {'Easy': 20},
+//     {'Medium': 100},
+//     {'Hard': 200},
+//     {'BEAST': 1000}
+// ]
+const MODE = [
+    {title: "Easy", number: 20},
+    {title: "Medium", number: 100},
+    {title: "Hard", number: 200},
+    {title: "BEAST", number: 1000},
+]
+
 
 export default function App() {
-    const [difficulty, setDifficulty] = useState(EASY)
+    const [difficulty, setDifficulty] = useState(MODE[0])
     const [pokemon, setPokemon] = useState([]);
     const [clickedList, setClickedList] = useState([]);
     const [highScore, setHighScore] = useState(0)
 
-    const api = `https://pokeapi.co/api/v2/pokemon?limit=${difficulty}`;
+    const api = `https://pokeapi.co/api/v2/pokemon?limit=${difficulty.number}`;
 
     useEffect(() => {
         getPokemon(api)
-    }, [])
+    }, [difficulty])
 
     const getPokemon = async (api) => {
         try {
@@ -43,6 +53,9 @@ export default function App() {
         setPokemon(shuffle(pokemon))
 
     }
+    const handleBtnClick = (value) => {
+        setDifficulty(value)
+    }
 
     return (
         <div className="w-screen h-screen">
@@ -54,9 +67,12 @@ export default function App() {
                     <h3 className="text-base">
                         Get points by clicking on an image but don't click on any more than once!
                     </h3>
+                    <h3 className="text-base">
+                        {difficulty.title} mode: {difficulty.number} pokemon!
+                    </h3>
                 </div>
                 <div className='bg-grey-200'>
-                    <ButtonGroup />
+                    <ButtonGroup handleBtnClick={handleBtnClick} options={MODE}/>
                     <h1 className="text-2xl  ">
                         Score: {clickedList.length}
                     </h1>

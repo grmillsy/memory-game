@@ -1,21 +1,7 @@
 import {useEffect, useState} from 'react'
 import Card from "./components/Card";
 import ButtonGroup from "./components/ButtonGroup";
-
-//TODO how can I use this way instead?
-// const MODE = [
-//     {'Easy': 20},
-//     {'Medium': 100},
-//     {'Hard': 200},
-//     {'BEAST': 1000}
-// ]
-const MODE = [
-    {title: "Easy", number: 20},
-    {title: "Medium", number: 100},
-    {title: "Hard", number: 200},
-    {title: "BEAST", number: 1000},
-]
-
+import { shuffle, MODE } from "./components/helpers.js";
 
 export default function App() {
     const [difficulty, setDifficulty] = useState(MODE[0])
@@ -39,10 +25,6 @@ export default function App() {
         }
     }
 
-    const shuffle = (array) => {
-        return array.sort(() => Math.random() - 0.5);
-    };
-
     const _handleOnClick = (e) => {
         if(clickedList.includes(e)) {
             highScore < clickedList.length && setHighScore(clickedList.length)
@@ -51,7 +33,6 @@ export default function App() {
            setClickedList([...clickedList, e])
         }
         setPokemon(shuffle(pokemon))
-
     }
     const handleBtnClick = (value) => {
         setDifficulty(value)
@@ -83,7 +64,7 @@ export default function App() {
             </div>
             <div className="bg-purple-200 h-auto p-10 grid grid-cols-5 gap-6">
                 {pokemon
-                    .filter((p,i) => i < 20)
+                    .filter((p,i) => i < 10)
                     .map((p) => {
                     return <Card key={p.name} pokemon={p} handleOnClick={_handleOnClick}/>
                 })}

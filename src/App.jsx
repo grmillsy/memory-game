@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
 import Card from "./components/Card";
+import ButtonGroup from "./components/ButtonGroup";
 
 const EASY = 20
 const MEDIUM = 100
@@ -55,6 +56,7 @@ export default function App() {
                     </h3>
                 </div>
                 <div className='bg-grey-200'>
+                    <ButtonGroup />
                     <h1 className="text-2xl  ">
                         Score: {clickedList.length}
                     </h1>

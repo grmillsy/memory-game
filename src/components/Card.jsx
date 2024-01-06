@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-export default function Card({pokemon}) {
+export default function Card({pokemon, handleOnClick}) {
     const [poke, setPoke] = useState({abilities: [], image: '', stats: []});
     const {name, url} = pokemon
     useEffect(() => {
@@ -19,11 +19,11 @@ export default function Card({pokemon}) {
 
     return (
         <>
-            <div className="bg-white max-w-sm rounded overflow-hidden shadow-lg">
+            <div onClick={() => handleOnClick(name)} className="cursor-pointer bg-white max-w-sm rounded-lg overflow-hidden shadow-lg hover:shadow-2xl">
+                <img className="w-full" src={poke.image} alt="Sunset in the mountains" />
                 <div className="px-6 py-4 text-center">
                     <div className="capitalize font-bold text-3xl mb-2 text-gray-800">{name}</div>
                 </div>
-                <img className="w-full" src={poke.image} alt="Sunset in the mountains" />
             </div>
         </>
     )
